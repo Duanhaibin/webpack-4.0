@@ -43,3 +43,47 @@ webpack中提供三个值：
 	[chunkhash]不同模块不同的哈希值。 每一个chunk自己的hash
 
 关于hash值，  webpack 只有当代码发生变化时打包  hash才会发生变化， 这样对静态资源的管理非常友好
+
+4： 上线时候output 会用到publicPath 属性。
+	相当于一个占位符， 当设置后 需要上线， 引用的地址  会被替换为绝对地址以 publicPath 设置的host 开头的地址 。
+
+
+base3 : 
+plugins:  []
+webpack  默认上下文是运行的目录，  即根目录 。 
+
+
+
+1.html-webpack-plugin : 引入对应的js 的 webpack对html操作的 插件 .
+    在filename中带上打包路径即可。 
+    （1）该插件可以直接给html文件传递参数， 使用ejs 模板语法可以获取到。 但是首字母必须小写。
+    例如： plugins:[
+			new HtmlWebpackPlugin({
+				template: 'index.html',
+				inject: 'head',
+				filename: 'pages/index-[hash].html',
+				title: 'webpack  插件给html 直接传参,支持ejs 语法 。 但是首字母必须小写 。',
+				date: new Date()
+
+			})
+		]
+		html 文件中取值可以使用 <%=  htmlWebpackPlugin.options.title %>
+	（2）ejs模板语法，执行语句用<%  %>  取值的语句用 <%=  %>
+    例如:<div>
+			<% for(var key in htmlWebpackPlugin) {%>
+            	<%= key %>
+       		<%}%>
+		</div>
+		的 编译结果是 files  和  options
+	（3）为了满足一部分js 在head 中引用， 一部分js 在body 后引用的要求， ejs 模板需要就需要用到了。
+		<script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.page1.entry %>"></script>
+		单独设置引用的位置。  ejs 循环输出 htmlWebpackPlugin.files 可以看具体信息。
+		inject  要配置为false.  否则会默认注入两边
+	（3）html 压缩配置 。 npm 官网 还有很多配置项  。
+			minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
+
+
+  
