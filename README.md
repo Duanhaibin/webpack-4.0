@@ -85,5 +85,13 @@ webpack  默认上下文是运行的目录，  即根目录 。
                 collapseWhitespace: true
             }
 
+base4 : 多页面应用
+	1.  多页面应用中， 原始的html 中不能有直接因引用的script 标签， 注释掉也是不管用的， 需要删除。
+	2.  html-webpack-plugin插件的配置项： excludeChunks: ['page4'], 引入所有，排除page4.
+	3.  有的需要初始化的时候以in-line的方式 引入页面 ： 
+		<script type="text/script">
+			<%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+		</script>
+		inject 需要设置为fasle ，  和第一点冲突 。  实例中没有体现例子。
 
   

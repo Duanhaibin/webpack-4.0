@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> <%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script type="text/script">
+        <%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+    </script>
+    这里inline  的代码， 和多入口插入 有冲突， 使用多页面时候不许删除此代码 。  是用此代码 inject 配置为false
+    
+    -->
+</head>
+<body>
+    <div id='s'>
+        auhdi;oashdf;oalhd;asdhf;ahsd;uhfads;jads;jidf;ds'oi
+            <!-- 我是一行注释  能删除吗 -->
+    </div>
+</body>
+</html>

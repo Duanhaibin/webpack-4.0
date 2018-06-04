@@ -6,8 +6,9 @@ module.exports = {
     // entry: ['./src/script/a.js','./src/app.js'],
     entry:{
         page1: './src/app.js',
-        page2: './src/script/a.js'
-
+        page2: './src/script/a.js',
+        page3: './src/script/b.js',
+        page4: './src/c.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -23,7 +24,24 @@ module.exports = {
             minify: {
                 removeComments: true,
                 collapseWhitespace: true
-            }
+            },
+
+
+        }),
+        new HtmlWebpackPlugin ({
+            template: 'page.html',
+            inject: 'head',
+            title: '这是一个多页面应用  。',
+            filename: 'pages/page-[hash].html',
+            chunks: ['page2']
+
+        }),
+        new HtmlWebpackPlugin ({
+            template: 'page.html',
+            inject: 'head',
+            title: '这是一个多页面应用  。',
+            filename: 'pages/page222-[hash].html',
+            excludeChunks: ['page4']
 
         })
     ]
